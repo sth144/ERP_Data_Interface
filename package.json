@@ -5,9 +5,9 @@
   "engines": {
     "node": "6.11.1"
   },
-  "main": "server/app.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node server/app.js",
+    "start": "node app.js",
     "db": "database.js"
   },
   "dependencies": {
