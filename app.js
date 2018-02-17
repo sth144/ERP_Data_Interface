@@ -30,10 +30,9 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
-/* import MySQL pool */
+/* import MySQL database */
 
-// var mysql = require('./dbConfig.js')
-// var pool = mysql.pool;
+var db = require('./database/database.js');
 
 /* set views directory */
 
@@ -46,25 +45,35 @@ app.get('/', function(request, response) {
 	context = {};
 	context.token = process.env.TOKEN;
 	context.secret = process.env.SECRET_MESSAGE;
-	response.render('home', context);
+	db.pool.query('SELECT * FROM test', function(err, rows, fields) {
+
+		if (err) {
+			next(err);
+			return;
+		}
+
+		context.results = JSON.stringify(rows);
+		response.render('home', context);
+
+	})
 });
 
 /* render the 404 resource not found page */
 
-app.use(function(request, response) {
+/*app.use(function(request, response) {
     response.status(404);
     response.render('404');
-});
+});*/
 
 
 /* render the 500 page for server errors */
 
-app.use(function(err, request, response, next) {
+/*app.use(function(err, request, response, next) {
     console.error(err.stack);
     response.type('plain/text');
     response.status(500);
     response.render('500');
-});
+});*/
 
 /* listen from port. display a string on the node console to verify that the app server is running */
 
