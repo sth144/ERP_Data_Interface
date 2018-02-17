@@ -39,7 +39,10 @@ app.set('view engine', 'handlebars');
 /* if no url appendage, render home page */
 
 app.get('/', function(request, response) {
-	response.render('home');
+	context = {};
+	context.token = process.env.TOKEN;
+	context.secret = process.env.SECRET_MESSAGE;
+	response.render('home', context);
 });
 
 /* render the 404 resource not found page */
