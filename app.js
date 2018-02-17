@@ -6,6 +6,10 @@
 			engine and MySQL database for the ERP Data Interface Application
 **************************************************************************************************************************/
 
+/* dotenv package enables environment variables to hide sensitive information from GitHub */
+
+require('dotenv').config()
+
 console.log(process.env.SECRET_MESSAGE);
 console.log(process.env.TOKEN);
 
