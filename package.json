@@ -19,7 +19,9 @@
     "express-handlebars": "^2.0.1",
     "express-session": "^1.11.3",
     "mysql": "^2.15.0",
-    "pg": "6.x"
+    "pg": "6.x",
+    "request": "^2.83.0",
+    "router-express": "^1.5.2"
   },
   "devDependencies": {
     "request": "^2.81.0",

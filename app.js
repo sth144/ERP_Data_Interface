@@ -18,6 +18,11 @@ console.log(process.env.TOKEN);
 var express = require('express');
 var app = express();
 
+/* set connection pool variable, import database router .js file */
+
+var data = require('./database/database');
+app.use('/data', data);
+
 /* default layout is main.hbs */
 
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});
@@ -30,10 +35,6 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
-/* import MySQL database */
-
-var db = require('./database/database.js');
-
 /* set views directory */
 
 app.engine('handlebars', handlebars.engine);
@@ -42,20 +43,9 @@ app.set('view engine', 'handlebars');
 /* if no url appendage, render home page */
 
 app.get('/', function(request, response) {
-	context = {};
-	context.token = process.env.TOKEN;
-	context.secret = process.env.SECRET_MESSAGE;
-	db.pool.query('SELECT * FROM test', function(err, rows, fields) {
 
-		if (err) {
-			next(err);
-			return;
-		}
+	response.redirect('/data');
 
-		context.results = JSON.stringify(rows);
-		response.render('home', context);
-
-	})
 });
 
 /* render the 404 resource not found page */
