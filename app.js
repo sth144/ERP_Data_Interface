@@ -23,6 +23,18 @@ var app = express();
 var data = require('./database/database');
 app.use('/data', data);
 
+var dbcreate = require('./database/create');
+var dbdelete = require('./database/delete');
+var dbinsert = require('./database/insert');
+var dbselect = require('./database/select');
+var dbupdate = require('./database/update');
+
+app.use('/create', dbcreate);
+app.use('/delete', dbdelete);
+app.use('/insert', dbinsert);
+app.use('/select', dbselect);
+app.use('/update', dbupdate);
+
 /* default layout is main.hbs */
 
 var handlebars = require('express-handlebars').create({defaultLayout:'main'});

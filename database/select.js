@@ -25,14 +25,12 @@ router.get('/', function(req,res,next) {
 
     // Process data and render table
 
-    context.results = JSON.parse(JSON.stringify(rows));
-    console.log('displaying refresh');
-    console.log(context.results);
-    res.render('home', context);
+    context.results = JSON.stringify(rows);
+    console.log('sending refresh');
+    res.send(context.results);
 
   });
 
 });
-
 
 module.exports = router;

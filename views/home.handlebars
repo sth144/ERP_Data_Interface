@@ -1,12 +1,29 @@
 <!doctype html>
 <html>
   <body>
-    <p>
-      HELLO {{token}}
-      {{secret}}
-    </p>
-    <p>
-      {{results}}
-    </p>
+  	<div class="jumbotron">
+  		<h1>bioERP Data Interface</h1>
+  	</div>
+    <table>
+    	<thead>
+    		<!-- Dynamic column headers using number of keys in result -->
+    		{{#if results.[1]}}
+ 		   		{{#with results.[1]}}
+ 		   			{{#each this}}
+ 		   				<th>{{@key}}</th>
+ 		   			{{/each}}
+ 		   		{{/with}}
+ 		   	{{/if}}
+    	</thead>
+	    <tbody>
+	      {{#each results}}
+	      	<tr>
+	      		{{#each this}}
+	      			<td>{{this}}</td>
+	      		{{/each}}
+	      	</tr>
+	      {{/each}}
+	    </tbody>
+	 </table>
   </body>
 </html>
