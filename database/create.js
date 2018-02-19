@@ -12,21 +12,27 @@ router.get('/', function(request, response) {
 
   pool.query(
 
-  	'DROP TABLE IF EXISTS test;'
-  	+
-    'CREATE TABLE `test` (' +
-    '`idtest` int(11) NOT NULL AUTO_INCREMENT,' +
-    '`nambo` varchar(45) DEFAULT NULL,' +
-    'PRIMARY KEY (`idtest`)' +
-    ') ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;',
+  	'DROP TABLE IF EXISTS `test`;', function(error) {
+  	
+  		pool.query(
+	
+		    'CREATE TABLE `test` (' +
+	    	'`id` int(11) NOT NULL AUTO_INCREMENT,' +
+	    	'`name` varchar(45) DEFAULT NULL,' +
+	    	'PRIMARY KEY (`id`)' +
+	    	') ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;',
 
-    function(err, rows, fields) {
+	    	function(err, rows, fields) {
 
-      if (err) {
-        next(err);
-        return;
-      }
+	    	  if (err) {
+	    	    next(err);
+	    	    return;
+	    	  }
+			
+			}
 
+		)
+	
     }
 
   )

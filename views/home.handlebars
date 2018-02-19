@@ -4,11 +4,16 @@
   	<div class="jumbotron">
   		<h1>bioERP Data Interface</h1>
   	</div>
-    <table>
+
+  	<div id="tableForms">
+  		Table Forms Here
+  	</div>
+
+    <table class="table">
     	<thead>
     		<!-- Dynamic column headers using number of keys in result -->
-    		{{#if results.[1]}}
- 		   		{{#with results.[1]}}
+    		{{#if results.[0]}}
+ 		   		{{#with results.[0]}}
  		   			{{#each this}}
  		   				<th>{{@key}}</th>
  		   			{{/each}}
@@ -21,6 +26,12 @@
 	      		{{#each this}}
 	      			<td>{{this}}</td>
 	      		{{/each}}
+	      		<td>
+	      			<form method="GET" action="/delete">
+	      				<input type="hidden" name="id" value="{{id}}">
+	      				<button onclick="submit">Delete</button>
+	      			</form>
+	      		</td>
 	      	</tr>
 	      {{/each}}
 	    </tbody>

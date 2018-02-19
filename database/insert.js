@@ -6,7 +6,7 @@ var router = express.Router();
 var mysql = require('./dbConfig');
 var pool = mysql.pool;
 
-router.get('/',function(req,res,next) {
+router.get('/test',function(req,res,next) {
 
   // Define context for the local scope
 
@@ -15,7 +15,8 @@ router.get('/',function(req,res,next) {
 
   // Parse values from the query
 
-  var values = [req.query.nambo];
+  var values = [req.query.name];
+  var columns = [req.query.dbtable]
   console.log("values ", values);
 
   // Query the database
@@ -23,8 +24,8 @@ router.get('/',function(req,res,next) {
   mysql.pool.query(
 
   	"INSERT INTO test " +
-  	"(nambo) " +
-  	"VALUES (?)", 
+  	"(name) " +
+  	"VALUES (?)",
 
   	values, function(err, result) {
 
@@ -48,7 +49,7 @@ router.get('/',function(req,res,next) {
 
   // Return Response to the client
 
-  res.send();
+  res.redirect('/');
 
 });
 

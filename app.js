@@ -56,7 +56,11 @@ app.set('view engine', 'handlebars');
 
 app.get('/', function(request, response) {
 
-	response.redirect('/data');
+    context = {};
+
+    response.render('home', context);
+
+	/* response.redirect('/data'); */
 
 });
 

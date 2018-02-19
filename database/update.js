@@ -38,8 +38,8 @@ console.log('safe update server');
 
       // Query the database
 
-      mysql.pool.query("UPDATE test SET nambo=? WHERE id=? ",
-        [req.query.nambo || curVals.nambo],
+      mysql.pool.query("UPDATE test SET name=? WHERE id=? ",
+        [req.query.name || curVals.name],
         function(err, result){
 
         // Error handling

@@ -14,7 +14,7 @@ router.get('/', function(req,res,next) {
 
   // Query the database
 
-  mysql.pool.query('SELECT * FROM test', function(err, rows, fields) {
+  mysql.pool.query('SELECT * FROM test;', function(err, rows, fields) {
 
     // Error handling
 

@@ -14,7 +14,7 @@ router.get('/', function(req,res,next) {
 
   // Query the database
 
-  mysql.pool.query('SELECT * FROM test', function(err, rows, fields) {
+  mysql.pool.query("SELECT * FROM test;", function(err, rows, fields) {
 
     // Error handling
 
@@ -25,9 +25,49 @@ router.get('/', function(req,res,next) {
 
     // Process data and render table
 
-    context.results = JSON.stringify(rows);
+    context.results = JSON.parse(JSON.stringify(rows));
     console.log('sending refresh');
-    res.send(context.results);
+    res.render('home', context);
+
+  });
+
+});
+
+router.get('/product', function(req,res,next) {
+  
+  var context = {};
+
+  mysql.pool.query(
+  	"SELECT id, name, unit, shelf_life, supplier, country, lead_time " +
+  	"FROM product;", function(err, rows, fields) {
+
+    if(err){
+      next(err);
+      return;
+    }
+
+    context.results = JSON.parse(JSON.stringify(rows));
+    console.log('sending refresh');
+    res.render('home', context);
+
+  });
+
+});
+
+router.get('/employee', function(req,res,next) {
+  
+  var context = {};
+
+  mysql.pool.query("SELECT name, supervisor, department FROM employee;", function(err, rows, fields) {
+
+    if(err){
+      next(err);
+      return;
+    }
+
+    context.results = JSON.parse(JSON.stringify(rows));
+    console.log('sending refresh');
+    res.render('home', context);
 
   });
 
