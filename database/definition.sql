@@ -142,7 +142,7 @@ VALUES
 INSERT INTO employee
 (name, supervisor, department)
 VALUES
-('employeeb', 1, 'departmenta');
+('employeeb', 2, 'departmenta');
 
 INSERT INTO employee
 (name, supervisor, department)

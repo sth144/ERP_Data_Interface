@@ -18,6 +18,12 @@ console.log(process.env.TOKEN);
 var express = require('express');
 var app = express();
 
+/* app will search for all static files in 'public/' */
+
+app.use(express.static(__dirname + '/public'));
+app.use('/select', express.static(__dirname + '/public'));
+app.use('/data', express.static(__dirname + '/public'));
+
 /* set connection pool variable, import database router .js file */
 
 var data = require('./database/database');
@@ -42,10 +48,6 @@ var handlebars = require('express-handlebars').create({defaultLayout:'main'});
 /* to run server locally in development environment, use port 5000 */
 
 app.set('port', (process.env.PORT || 5000));
-
-/* app will search for all static files in 'public/' */
-
-app.use(express.static(__dirname + '/public'));
 
 /* set views directory */
 

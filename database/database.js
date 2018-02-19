@@ -34,5 +34,53 @@ router.get('/', function(req,res,next) {
 
 });
 
+router.get('/product', function(req,res,next) {
+  
+  var context = {};
+  context.model = 'product';
+
+  mysql.pool.query(
+    "SELECT id, name, unit, shelf_life, supplier, country, lead_time " +
+    "FROM product;", function(err, rows, fields) {
+
+    if(err){
+      next(err);
+      return;
+    }
+
+    context.results = JSON.parse(JSON.stringify(rows));
+    console.log('sending refresh');
+    console.log(context);
+
+    /* will want to turn into a res.send() and use AJAX */
+
+    res.render('home', context);
+
+  });
+
+});
+
+router.get('/employee', function(req,res,next) {
+  
+  var context = {};
+  context.model = 'employee';
+
+  mysql.pool.query("SELECT name, supervisor, department FROM employee;", function(err, rows, fields) {
+
+    if(err){
+      next(err);
+      return;
+    }
+
+    context.results = JSON.parse(JSON.stringify(rows));
+    console.log('sending refresh');
+
+    /* will want to turn into a res.send() and use AJAX */
+
+    res.render('home', context);
+
+  });
+
+});
 
 module.exports = router;

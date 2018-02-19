@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+var path = require('path');
+//router.use(express.static(__dirname + './../public'))
+
+//router.use(express.static(path.join(__dirname, 'public')));
 
 /* import MySQL database credentials from dbConfig, which uses environment variables */
 
@@ -36,6 +40,7 @@ router.get('/', function(req,res,next) {
 router.get('/product', function(req,res,next) {
   
   var context = {};
+  context.model = 'product';
 
   mysql.pool.query(
   	"SELECT id, name, unit, shelf_life, supplier, country, lead_time " +
@@ -48,7 +53,11 @@ router.get('/product', function(req,res,next) {
 
     context.results = JSON.parse(JSON.stringify(rows));
     console.log('sending refresh');
-    res.render('home', context);
+    console.log(context);
+
+    /* will want to turn into a res.send() and use AJAX */
+
+    res.send(context);
 
   });
 
@@ -57,6 +66,7 @@ router.get('/product', function(req,res,next) {
 router.get('/employee', function(req,res,next) {
   
   var context = {};
+  context.model = 'employee';
 
   mysql.pool.query("SELECT name, supervisor, department FROM employee;", function(err, rows, fields) {
 
@@ -67,7 +77,10 @@ router.get('/employee', function(req,res,next) {
 
     context.results = JSON.parse(JSON.stringify(rows));
     console.log('sending refresh');
-    res.render('home', context);
+
+    /* will want to turn into a res.send() and use AJAX */
+
+    res.send(context);
 
   });
 
