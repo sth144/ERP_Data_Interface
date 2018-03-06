@@ -23,23 +23,30 @@ var app = express();
 app.use(express.static(__dirname + '/public'));
 app.use('/select', express.static(__dirname + '/public'));
 app.use('/data', express.static(__dirname + '/public'));
+app.use('/insert', express.static(__dirname + '/public'));
+app.use('/delete', express.static(__dirname + '/public'));
+app.use('/update', express.static(__dirname + '/public'));
 
 /* set connection pool variable, import database router .js file */
 
 var data = require('./database/database');
 app.use('/data', data);
 
-var dbcreate = require('./database/create');
 var dbdelete = require('./database/delete');
 var dbinsert = require('./database/insert');
 var dbselect = require('./database/select');
 var dbupdate = require('./database/update');
 
-app.use('/create', dbcreate);
 app.use('/delete', dbdelete);
 app.use('/insert', dbinsert);
 app.use('/select', dbselect);
 app.use('/update', dbupdate);
+
+/* for handling POST requests */ 
+
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended: false}));
 
 /* default layout is main.hbs */
 
@@ -60,6 +67,10 @@ app.get('/', function(request, response) {
 
     context = {};
 
+    context.intro = 
+    "Use this app to track enterprise resources including labor, inventory, and capital.\n" +
+    "Tables can be exported into .csv files for further analysis."
+
     response.render('home', context);
 
 	/* response.redirect('/data'); */
@@ -68,20 +79,20 @@ app.get('/', function(request, response) {
 
 /* render the 404 resource not found page */
 
-/*app.use(function(request, response) {
+app.use(function(request, response) {
     response.status(404);
     response.render('404');
-});*/
+});
 
 
 /* render the 500 page for server errors */
 
-/*app.use(function(err, request, response, next) {
+app.use(function(err, request, response, next) {
     console.error(err.stack);
     response.type('plain/text');
     response.status(500);
     response.render('500');
-});*/
+});
 
 /* listen from port. display a string on the node console to verify that the app server is running */
 

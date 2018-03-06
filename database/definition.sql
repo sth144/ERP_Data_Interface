@@ -18,16 +18,17 @@ CREATE TABLE `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `unit` varchar(45) DEFAULT NULL,
-  `shelf_life` int(11) DEFAULT NULL,
+  `shelf_life` int(11) DEFAULT 99999,
   `supplier` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
-  `lead_time` int(11) DEFAULT NULL,
+  `lead_time` int(11) DEFAULT 0,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `employee` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
+  `fname` varchar(255) DEFAULT NULL,
+  `lname` varchar(255) DEFAULT NULL,
   `supervisor` int(11) DEFAULT NULL,
   `department` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -106,45 +107,134 @@ REFERENCES employee(id);
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
 VALUES
-('producta', 'a', 33, 'companya', 'countrya', 40);
+('alpha-Amylase', 'mg', 1000, 'Bio-Hub', 'USA', 40);
 
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
 VALUES
-('productb', 'g', 3333, 'companyb', 'countrya', 40);
+('RNase A', 'g', 2000, 'Genotype Inc.', 'USA', 20);
 
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
 VALUES
-('productc', 'g', 33444, 'companyc', 'countrya', 44430);
+('Paramagnetic Agarose Resin', 'L', 2000, 'Resin Research Corporation', 'USA', 44);
 
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
 VALUES
-('productd', 'g', 3223, 'companya', 'countryd', 430);
+('Taq Polymerase', 'g', 3000, 'Biotec de Buenos Aires', 'Argentina', 10);
 
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
 VALUES
-('producte', 'g', 333, 'companye', 'countrya', 440);
+('Compound Library A', 'g', 365, 'Rio Bioscience', 'Brazil', 20);
 
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
 VALUES
-('productf', 'g', 133, 'companya', 'countrya', 40);
+('Primer Library A', 'g', 3000, 'Genome Sciences Ltd.', 'S. Korea', 40);
+
+INSERT INTO product
+(name, unit, shelf_life, supplier, country, lead_time)
+VALUES
+('Paramagnetic Agarose Resin', 'g', 365, 'Rio Bioscience', 'Brazil', 20);
+
+INSERT INTO product
+(name, unit, shelf_life, supplier, country, lead_time)
+VALUES
+('Bovine tRNA Extract', 'g', 3000, 'Genome Sciences Ltd.', 'S. Korea', 40);
+
+INSERT INTO product
+(name, unit, shelf_life, supplier, country, lead_time)
+VALUES
+('HEK Screening Cell Line', 'billion cells', 365, 'Bio-Hub', 'USA', 20);
+
+INSERT INTO product
+(name, unit, shelf_life, supplier, country, lead_time)
+VALUES
+('Size Exclusion Chromatography Resin', 'g', 3000, 'Genome Sciences Ltd.', 'S. Korea', 40);
+
+INSERT INTO product
+(name, unit, shelf_life, supplier, country, lead_time)
+VALUES
+('System Liquid for High Throughput Robotics', 'g', 365, 'Rio Bioscience', 'Brazil', 20);
+
+INSERT INTO product
+(name, unit, shelf_life, supplier, country, lead_time)
+VALUES
+('RFID Tags', 'g', 3000, 'Genome Sciences Ltd.', 'S. Korea', 40);
+
 
 
 INSERT INTO employee
-(name, supervisor, department)
+(fname, lname, supervisor, department)
 VALUES
-('employeea', 1, 'departmenta');
+('Mark', 'Lewis', 1, 'Production');
 
 INSERT INTO employee
-(name, supervisor, department)
+(fname, lname, supervisor, department)
 VALUES
-('employeeb', 2, 'departmenta');
+('Jennifer', 'Stewart', 1, 'Process Development');
 
 INSERT INTO employee
-(name, supervisor, department)
+(fname, lname, supervisor, department)
 VALUES
-('employeec', 1, 'departmentb');
+('Howard', 'Jackson', 2, 'Logistics');
+
+INSERT INTO employee
+(fname, lname, supervisor, department)
+VALUES
+('Paula', 'Peterson', 4, 'Lead Research');
+
+INSERT INTO employee
+(fname, lname, supervisor, department)
+VALUES
+('Liz', 'Waters', 4, 'Upstream Process');
+
+INSERT INTO employee
+(fname, lname, supervisor, department)
+VALUES
+('Wyeth', 'Jimbo', 1, 'Downstream Process');
+
+INSERT INTO employee
+(fname, lname, supervisor, department)
+VALUES
+('Bill', 'Hampton', 1, 'Downstream Process');
+
+INSERT INTO employee
+(fname, lname, supervisor, department)
+VALUES
+('Sara', 'Sanders', 1, 'Fermentation');
+
+INSERT INTO employee
+(fname, lname, supervisor, department)
+VALUES
+('James', 'Dean', 5, 'Software Engineering');
+
+INSERT INTO employee
+(fname, lname, supervisor, department)
+VALUES
+('Peter', 'Dinklage', 1, 'Instrumentation Engineering');
+
+
+
+INSERT INTO equipment
+(name, operators_required, manufacturer, service_interval, service_contact)
+VALUES
+('Liquid Handling Robotics System', 1, 'Bio-Robotics Inc.', 90, 'John Lewis 483-288-4838');
+
+
+
+INSERT INTO customer
+(name, contact)
+VALUES
+('Discovery Therapeutics', 'Jim Morrison 392-293-1838');
+
+
+
+INSERT INTO experiment
+(date, notes)
+VALUES
+('2018-03-04', 'Antibody X is unstable at room temperature')
+
+

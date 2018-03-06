@@ -6,20 +6,26 @@ var router = express.Router();
 var mysql = require('./dbConfig');
 var pool = mysql.pool;
 
+var modelImport = require('./modelsObj')
+var modelsObj = modelImport.modelsObj;
+
 /******************************************************************************************************************
   Safe update route updates a row in the table
 ******************************************************************************************************************/
 
-router.get('/safe-update',function(req,res,next) {
+router.get('/',function(req,res,next) {
 
-  // Define context for the local scope
+  var model = [req.query.table];
+  console.log('model is ' + model)
 
-console.log('safe update server');
+  /* Define context for the local scope */
+
+  console.log('safe update! server');
   var context = {};
 
-  // Query the database
+  /* Query the database */
 
-  mysql.pool.query("SELECT * FROM exercises WHERE id=?", [req.query.id], function(err, result) {
+  mysql.pool.query('SELECT * FROM ' + model + ' WHERE id=?', [req.query.id], function(err, result) {
 
     // Error handling
 
@@ -32,14 +38,41 @@ console.log('safe update server');
 
     if(result.length == 1) {
 
-      // Declare a variable to store the id of the row being altered
+      /* Declare a variable to store the id of the row being altered */
 
       var curVals = result[0];
 
-      // Query the database
+      var queryString = "SET ";
+      var queryArr = [];
 
-      mysql.pool.query("UPDATE test SET name=? WHERE id=? ",
-        [req.query.name || curVals.name],
+      /* build queryString */
+      for (var i = 1; i < modelsObj[model]['SQLcols'].length; i++) {
+          queryString += modelsObj[model]['SQLcols'][i];
+          if (i < modelsObj[model]['SQLcols'].length - 1) {
+            queryString += "=?, "
+          } else {
+            queryString += "=? ";
+          }
+      }
+      queryString += "WHERE id=? ";
+
+      /* build queryArr */
+
+      for (var i = 0; i < modelsObj[model]['fieldNames'].length - 1; i++) {
+          var curAttr = modelsObj[model]['fieldNames'][i + 1];
+          queryArr[i] = req.query[curAttr] || curVals[curAttr];
+      }
+      queryArr[queryArr.length] = req.query['id'];
+
+      console.log(queryString);
+      console.log(queryArr);
+
+      /* Query the database */
+
+      mysql.pool.query("UPDATE " + model + " " + 
+        queryString,
+        queryArr,
+
         function(err, result){
 
         // Error handling

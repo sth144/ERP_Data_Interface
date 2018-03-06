@@ -1,0 +1,31 @@
+footer {
+	padding:30px;
+	height: 394px;
+}
+
+footer, .page-header {
+	background-color: #DDFFFF;
+	margin-top: 52px;
+}
+
+nav {
+	padding: 5px;
+}
+
+.icon {
+	height: 50px;
+	width: 50px;
+}
+
+.my-form {
+	/*padding: 32px;
+	border: 1px solid #DDDDDD;*/
+}
+
+#editForm {
+	margin: 20px;
+}
+
+#tab {
+	margin-bottom: 46px;
+}
