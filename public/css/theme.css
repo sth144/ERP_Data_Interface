@@ -17,12 +17,20 @@ footer {
 }
 
 footer, .page-header {
-	background-color: #DDFFFF;
+	background-color: #DDEEEE;
 	margin-top: 52px;
 }
 
 nav {
 	padding: 5px;
+}
+
+.carousel-inner {
+	margin-top: 186px;
+}
+
+.center-block {
+	width: 86%;
 }
 
 .icon {

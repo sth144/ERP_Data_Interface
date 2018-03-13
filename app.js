@@ -77,9 +77,7 @@ app.get('/about', function(request, response) {
 
     context = {};
 
-    response.render('intro', context);
-
-    /* response.redirect('/data'); */
+    response.render('about', context);
 
 });
 
@@ -87,9 +85,7 @@ app.get('/contact', function(request, response) {
 
     context = {};
 
-    response.render('intro', context);
-
-    /* response.redirect('/data'); */
+    response.render('contact', context);
 
 });
 

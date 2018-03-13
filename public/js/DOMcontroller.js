@@ -77,11 +77,13 @@ document.body.onload = function() {
 	}
 
 	function constructDom() {
-		for (var i = 0; i < modelsObj[model]['DOM'].length; i++) {
-			if (modelsObj[model]['DOM'][i] == 'insertForm') {insertForm();}
-			if (modelsObj[model]['DOM'][i] == 'makeEditable') {makeEditable();}
-			if (modelsObj[model]['DOM'][i] == 'searchBar') {insertSearchBar();}
-			if (modelsObj[model]['DOM'][i] == 'exportDataButton') {exportDataButton();}
+		if (model !== 'none') {	// if a model is to be displayed
+			for (var i = 0; i < modelsObj[model]['DOM'].length; i++) {
+				if (modelsObj[model]['DOM'][i] == 'insertForm') {insertForm();}
+				if (modelsObj[model]['DOM'][i] == 'makeEditable') {makeEditable();}
+				if (modelsObj[model]['DOM'][i] == 'searchBar') {insertSearchBar();}
+				if (modelsObj[model]['DOM'][i] == 'exportDataButton') {exportDataButton();}
+			}
 		}
 	}
 
