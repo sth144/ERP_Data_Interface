@@ -67,13 +67,29 @@ app.get('/', function(request, response) {
 
     context = {};
 
-    context.intro = 
-    "Use this app to track enterprise resources including labor, inventory, and capital.\n" +
-    "Tables can be exported into .csv files for further analysis."
-
-    response.render('home', context);
+    response.render('intro', context);
 
 	/* response.redirect('/data'); */
+
+});
+
+app.get('/about', function(request, response) {
+
+    context = {};
+
+    response.render('intro', context);
+
+    /* response.redirect('/data'); */
+
+});
+
+app.get('/contact', function(request, response) {
+
+    context = {};
+
+    response.render('intro', context);
+
+    /* response.redirect('/data'); */
 
 });
 

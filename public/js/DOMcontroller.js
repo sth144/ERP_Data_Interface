@@ -81,6 +81,7 @@ document.body.onload = function() {
 			if (modelsObj[model]['DOM'][i] == 'insertForm') {insertForm();}
 			if (modelsObj[model]['DOM'][i] == 'makeEditable') {makeEditable();}
 			if (modelsObj[model]['DOM'][i] == 'searchBar') {insertSearchBar();}
+			if (modelsObj[model]['DOM'][i] == 'exportDataButton') {exportDataButton();}
 		}
 	}
 
@@ -309,6 +310,16 @@ document.body.onload = function() {
 			refreshData(model, qString);
 		}
 
+	}
+
+	function exportDataButton() {
+		var exportButton = document.createElement("button");
+		exportButton.innerHTML = "Export .csv";
+		var container = document.getElementById("bottom-button");
+		container.appendChild(exportButton);
+		exportButton.onclick = function() {
+			csvExport();
+		}
 	}
 
 	/* end XMLHttpRequest for model data */

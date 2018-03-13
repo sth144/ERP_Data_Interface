@@ -1,6 +1,19 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 340px;		/* must be > footer height for responsive footer */
+}
+
 footer {
-	padding:30px;
-	height: 394px;
+	position: absolute;
+	padding-top: 3%;
+	bottom: 0;
+	/*padding:30px;*/
+	height: 290px;
+	width: 100%;
 }
 
 footer, .page-header {
@@ -28,4 +41,8 @@ nav {
 
 #tab {
 	margin-bottom: 46px;
+}
+
+#bottom-button {
+	text-align: center;
 }

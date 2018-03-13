@@ -11,6 +11,10 @@ ________________________________________________________________________________
 
 	<head>
 
+        <!-- import jQuery -->
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 		<!--these tags enable Bootstrap across browsers-->
 		<meta charset="utf-8">
     	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,13 +29,9 @@ ________________________________________________________________________________
 
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-		<!--Custom styles for this template -->
+        <!--Custom styles for this template -->
 
-		<link href="css/theme.css" rel="stylesheet">
-
-		<!-- import jQuery -->
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <link href="css/theme.css" rel="stylesheet">
 
 	</head>
 
@@ -45,7 +45,7 @@ ________________________________________________________________________________
 
 
                     <div class="navbar-header">
-            		<a><img class="icon navbar-left" src="ico/myiconTop.ico"></a>
+            		<a href="/"><img class="icon navbar-left" src="ico/myiconTop.ico" ></a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
@@ -59,24 +59,24 @@ ________________________________________________________________________________
 
                     <div id="navbar" class="navbar-collapse collapse">
 
-                        <ul class="nav navbar-nav navbar-default">
+                        <ul class="nav navbar-nav navbar-default navbar-right">
                             <li id=""><a href="/data?table=product">Product</a></li>
+                            <li id=""><a href="/data?table=batch">Batch</a></li>
                             <li id=""><a href="/data?table=employee">Employee</a></li>
                             <li id=""><a href="/data?table=equipment">Equipment</a></li>
-                            <li id=""><a href="/data?table=authorization">Authorizations</a></li>
-                            <li id=""><a href="/data?table=customer">Customer</a></li>
-                            <li id=""><a href="/data?table=experiment">Experiment</a></li>
-                            <li id=""><a href="/data?table=purchase">Purchases</a></li>
-                            <li id=""><a href="/data?table=customer">Components</a></li>
                             <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">     About       <span class="caret"></span></a>
 
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">     More       <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="about">About</a></li>
-                                <li><a href="contact">Contact</a></li>
+                                <li><a class="dropdown-item" href="/data?table=authorization">Authorizations</a></li>
+                                <li><a class="dropdown-item" href="/data?table=customer">Customer</a></li>
+                                <li><a class="dropdown-item" href="/data?table=experiment">Experiment</a></li>
+                                <li><a class="dropdown-item" href="/data?table=purchase">Purchases</a></li>
                                 <li role="separator" class="divider"></li>
-                            </ul>   
-
+                            
+                                <li><a class="dropdown-item" href="about">About</a></li>
+                                <li><a class="dropdown-item" href="contact">Contact</a></li>
+                            </ul>  
                         </ul>
 
                     </div><!--/.nav-collapse -->
@@ -109,13 +109,13 @@ ________________________________________________________________________________
 
 		            <div class="">
                             <a href="/data?table=product">Product</a><br>
+                            <a href="/data?table=batch">Batch</a><br>
                             <a href="/data?table=employee">Employee</a><br>
                             <a href="/data?table=equipment">Equipment</a><br>
                             <a href="/data?table=authorization">Authorizations</a><br>
                             <a href="/data?table=customer">Customer</a><br>
                             <a href="/data?table=experiment">Experiment</a><br>
                             <a href="/data?table=purchase">Purchases</a><br>
-                            <a href="/data?table=customer">Components</a><br>
 		            </div>
 
 		        </div>
