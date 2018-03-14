@@ -1,3 +1,12 @@
+/***************************************************************************************************
+  Title: JavaScript CSV Export 
+  Author: Sean Hinds
+  Date: 03/13/18
+  Description: CSV export function. Parses a table for data and generates a text string from that
+                data. Formats that text data for .csv. Generates a temporary link element which 
+                initiates .csv download to the client.
+***************************************************************************************************/
+
 function csvExport() {
 
   console.log('export');

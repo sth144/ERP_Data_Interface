@@ -1,20 +1,33 @@
+/***************************************************************************************************
+  Title: Select Router for bioERP Data Interface
+  Author: Sean HInds
+  Date: 03/13/18
+  Description: This router will be used for the table search functionality.
+***************************************************************************************************/
+
 var express = require('express');
 var router = express.Router();
 var path = require('path');
 
 /* import MySQL database credentials from dbConfig, which uses environment variables */
-
 var mysql = require('./dbConfig');
 var pool = mysql.pool;
 
+/* import the models object to allow querying of different tables using meta-data */
 var modelImport = require('./modelsObj')
 var modelsObj = modelImport.modelsObj;
 
+/* generic router */
+
 router.get('/', function(req, res, next) {
-  console.log('hello generic')
+  
   console.log([req.query])
   var context = {};
+  
+  /* grab the model */
   context.model = [req.query.table]
+
+  /* construct query strings */
   var selectString = ""; var selectString2 = "";
   for (var i = 0; i < modelsObj[context.model]['SQLcols'].length; i++) {
     selectString += modelsObj[context.model]['SQLcols'][i];
@@ -22,6 +35,8 @@ router.get('/', function(req, res, next) {
       selectString += ", ";
     } else { selectString += " "; }
   }
+
+  /* determine if the query has a where clause, and which columns will be selected */
   var filterRows = false;
   var columnsFiltered = []
   for (var i = 0; i < modelsObj[context.model]['SQLcols'].length; i++) {
@@ -31,6 +46,7 @@ router.get('/', function(req, res, next) {
       columnsFiltered.push(i);
     }
   }
+  /* construct where clause */
   if (filterRows) {
     selectString2 += " WHERE ";
     for (var i = 0; i < columnsFiltered.length; i++) {
@@ -44,6 +60,8 @@ router.get('/', function(req, res, next) {
     }
   }
   console.log('select strings ' + selectString + ' and ' + selectString2);
+  
+  /* execute the query */
   mysql.pool.query(
     "SELECT " + selectString +
     "FROM " + context.model + 
@@ -60,5 +78,7 @@ router.get('/', function(req, res, next) {
     } 
   )
 });
+
+/* export the router */
 
 module.exports = router;

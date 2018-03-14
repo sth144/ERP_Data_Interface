@@ -1,3 +1,17 @@
+/***************************************************************************************************
+  Title: ModelsObj Object Definition
+  Author: Sean Hinds  
+  Date: 03/13/18
+  Description: Attribute definitions for the ModelsObj object, which holds all meta-data necessary
+                for the bioERP Node.js application to query the MySQL database. 
+***************************************************************************************************/
+
+/* each property has 4 properties. DOM specifies the functions to be called by the controller on
+    the client machine when the page loads, colheaders specifies the column headers to be displayed
+    in the browser. SQLcols specifies the column names of the table in the SQL database. 
+    insertStrings are passed to the query handler to query the database using user input */
+
+
 var modelsObj = {
   product: {
     DOM: ['insertForm', 'makeEditable', 'searchBar', 'exportDataButton'],

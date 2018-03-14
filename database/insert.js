@@ -1,11 +1,19 @@
+/***************************************************************************************************
+  Title: Insert Router for bioERP Data Interface
+  Author: Sean Hinds
+  Date: 03/14/18
+  Description: Router which handles data insertion requests. Executes an insert statement against
+                the database.
+***************************************************************************************************/
+
 var express = require('express');
 var router = express.Router();
 
 /* import MySQL database credentials from dbConfig, which uses environment variables */
-
 var mysql = require('./dbConfig');
 var pool = mysql.pool;
 
+/* import model meta-data */
 var modelImport = require('./modelsObj')
 var modelsObj = modelImport.modelsObj;
 

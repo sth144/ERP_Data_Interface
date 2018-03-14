@@ -1,3 +1,11 @@
+/***************************************************************************************************
+  Title: Theme for bioERP Data Interface
+  Author: Sean Hinds
+  Date: 03/13/18
+  Description: Custom stylesheet for the bioERP Data Interface application. Bootstrap provides basic
+  				styling.
+***************************************************************************************************/
+
 html {
   position: relative;
   min-height: 100%;
@@ -25,12 +33,29 @@ nav {
 	padding: 5px;
 }
 
+.navbar {
+	background: #FFFFFF;
+}
+
+.carousel {
+	width: 76%;
+	margin: auto;
+}
+
 .carousel-inner {
-	margin-top: 186px;
+	margin-top: 212px;
 }
 
 .center-block {
-	width: 86%;
+	width: 100%;
+}
+
+.navbar-dark {
+	background-color: #99CCCC;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-brand {
+	color: #454545;
 }
 
 .icon {
@@ -43,6 +68,16 @@ nav {
 	border: 1px solid #DDDDDD;*/
 }
 
+.my-img {
+	margin-top: 14%;
+	height: 94%;
+	width: 94%;
+}
+
+.text-light {
+	color: #FFFFFF;
+}
+
 #editForm {
 	margin: 20px;
 }
@@ -52,5 +87,9 @@ nav {
 }
 
 #bottom-button {
+	text-align: center;
+}
+
+#carousel-example-generic {
 	text-align: center;
 }

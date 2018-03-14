@@ -1,11 +1,19 @@
+/***************************************************************************************************
+  Title: Generic SQL Data Display Router for bioERP Data Interface Application
+  Author: Sean Hinds
+  Date: 03/13/18
+  Description: Provides generic table display functionality. Displays all rows and columns in the 
+                table, unfiltered.
+***************************************************************************************************/
+
 var express = require('express');
 var router = express.Router();
 
 /* import MySQL database credentials from dbConfig, which uses environment variables */
-
 var mysql = require('./dbConfig');
 var pool = mysql.pool;
 
+/* import model meta-data */
 var modelImport = require('./modelsObj')
 var modelsObj = modelImport.modelsObj;
 
@@ -14,6 +22,7 @@ router.get('/', function(req, res, next) {
   var context = {};
   context.model = [req.query.table];
 
+  /* form query string */
   var selectString = ""; 
   for (var i = 0; i < modelsObj[context.model]['SQLcols'].length; i++) {
     selectString += modelsObj[context.model]['SQLcols'][i];
@@ -22,6 +31,7 @@ router.get('/', function(req, res, next) {
     } else { selectString += " "; }
   }
 
+  /* query the database and render the page */
   mysql.pool.query(
     "SELECT " + selectString +
     "FROM " + context.model + 
@@ -39,6 +49,7 @@ router.get('/', function(req, res, next) {
 
 });
 
+/* select data and return response to client as HTTP response. Not used */
 router.get('/models', function(req, res, next) {
 
   console.log('models sserver')
@@ -49,4 +60,5 @@ router.get('/models', function(req, res, next) {
 
 });
 
+/* export the module */
 module.exports = router;

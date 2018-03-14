@@ -166,7 +166,7 @@ VALUES
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
 VALUES
-('Taq Polymerase', 'g', 3000, 'Biotec de Buenos Aires', 'Argentina', 10);
+('Taq Polymerase', 'g', 3000, 'Biotec', 'Argentina', 10);
 
 INSERT INTO product
 (name, unit, shelf_life, supplier, country, lead_time)
