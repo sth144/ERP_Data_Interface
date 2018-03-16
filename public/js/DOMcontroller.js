@@ -35,38 +35,24 @@ document.body.onload = function() {
 			/* refreshData() refreshes table display using AJAX */
 
 			function refreshData(mod, queryString) {
-
 				console.log('col headers ', modelsObj[model]['colHeaders']);
-
 				var refresh = new XMLHttpRequest();
 				refresh.open("GET", "/select?table=" + mod + queryString, true);
-
 				refresh.addEventListener("load", function() {
-
 					if (refresh.status >= 200 && refresh.status < 400) {
-
 						console.log('generic client-refresh ' + mod);
-						console.log(refresh.responseText.results);
-
 						var rebuild = JSON.parse(refresh.responseText).results;
 						var tableBody = document.getElementById('tab').childNodes[3];
-
 						while (tableBody.firstChild) {
 							tableBody.removeChild(tableBody.firstChild);
 						}
-
 						for (var i = 0; i < rebuild.length; i++) {
-
 							var newRow = document.createElement('tr');
-
 							/* rebuild table using response text */
-
 							for (var j = 0; j < modelsObj[model]['SQLcols'].length; j++) {
-
 								var newData = document.createElement('td');
 								newData.textContent = rebuild[i][modelsObj[model]['SQLcols'][j]];
 								newRow.appendChild(newData);
-
 							}
 							tableBody.appendChild(newRow);
 						}
@@ -75,11 +61,8 @@ document.body.onload = function() {
 					else {
 						console.log('error');
 					}
-
 				})
-
 				refresh.send(null); event.preventDefault;
-
 			}
 
 			/* constructDom() builds the DOM according to the DOM property of the model in modelsObj */
@@ -125,14 +108,14 @@ document.body.onload = function() {
 							selectDropReq.open("GET", "/select?table=" + modelsObj[model]['foreignKeys'][modelsObj[model]['SQLcols'][i]][0], true);
 							selectDropReq.addEventListener("load", function() {
 								if (selectDropReq.status >= 200 && selectDropReq.status < 400) { 
-									var rows = JSON.parse(selectDropReq.responseText).results;
+									var fkRows = JSON.parse(selectDropReq.responseText).results;
 									/* iterate through each row in the response (foreign key table */
-									for (var k = 0; k < rows.length; k++) {
+									for (var k = 0; k < fkRows.length; k++) {
 										/* create a new option */
 										var newOption = document.createElement("option");
-										newOption.value = k;
+										newOption.value = fkRows[k]['id'];
 										for (var j = 0; j < newSelectNamesArr.length; j++) {
-											newOption.innerHTML += rows[k][newSelectNamesArr[j]] + " ";		// display string for the option
+											newOption.innerHTML += fkRows[k][newSelectNamesArr[j]] + " ";		// display string for the option
 										}
 										newSelect.appendChild(newOption);
 									}
@@ -259,13 +242,10 @@ document.body.onload = function() {
 			function insertEditForm(row) {
 
 				console.log('inserteditform');
-
 				var rowData = row.getElementsByTagName('td');
 
 				/* hide row */
-
 				row.style.display = "none";
-
 				/* create edit form */
 
 				var tempRow = document.createElement('tr');
@@ -299,14 +279,14 @@ document.body.onload = function() {
 							selectDropReq.open("GET", "/select?table=" + modelsObj[model]['foreignKeys'][modelsObj[model]['SQLcols'][i]][0], true);
 							selectDropReq.addEventListener("load", function() {
 								if (selectDropReq.status >= 200 && selectDropReq.status < 400) { 
-									var rows = JSON.parse(selectDropReq.responseText).results;
-									/* iterate through each row in the response (foreign key table */
-									for (var k = 0; k < rows.length; k++) {
+									var fkRows = JSON.parse(selectDropReq.responseText).results;
+									/* iterate through each row in the response (foreign key table) */
+									for (var k = 0; k < fkRows.length; k++) {
 										/* create a new option */
 										var newOption = document.createElement("option");
-										newOption.value = k;
+										newOption.value = fkRows[k]['id'];
 										for (var j = 0; j < newSelectNamesArr.length; j++) {
-											newOption.innerHTML += rows[k][newSelectNamesArr[j]] + " ";		// display string for the option
+											newOption.innerHTML += fkRows[k][newSelectNamesArr[j]] + " ";		// display string for the option
 										}
 										newSelect.appendChild(newOption);
 									}
@@ -322,7 +302,14 @@ document.body.onload = function() {
 						var newFieldTitle = document.createElement('strong'); if (i == 0) { newFieldTitle.style.visibility = "hidden" }
 						newFieldTitle.textContent = modelsObj[model]['colHeaders'][i];
 						newField.name = modelsObj[model]['SQLcols'][i];
-						newField.value = rowData[i].textContent;
+						/* truncate the data if it is a date, do not display */
+						if (newField.name == 'expiration' || 
+							newField.name == 'date') {
+								newField.value = rowData[i].textContent.substring(0, 10);
+						}
+						else {
+							newField.value = rowData[i].textContent;
+						}
 						editForm.appendChild(newFieldTitle);
 						editForm.appendChild(document.createElement('br'));
 						editForm.appendChild(newField);

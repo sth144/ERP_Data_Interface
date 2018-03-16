@@ -110,7 +110,7 @@ var modelsObj = {
     insertStrings: [
       "(experiment_id, product_id)",
       "(?, ?)"
-    ],
+    ], 
     foreignKeys: {experiment_id: ['experiment', ['id']], product_id: ['product', ['name']]}
   },
   experiment_employee: {
