@@ -173,11 +173,9 @@ document.body.onload = function() {
 
 				/* JQuery onclick function for edit row */
 				$(".editRow").click(function() {
-
 					var table = document.getElementById('tab');
 					// Count rows in the table
 					var rowCount = table.rows.length;
-
 					var found = false;
 					// Iterate through each row
 					for (var i = 0; i < rowCount; i++) {
@@ -189,12 +187,10 @@ document.body.onload = function() {
 							insertEditForm(row);
 						}
 					}
-
 				});
 
 				/* JQuery onclick functionality for deleteRow button */
-				$(".deleteRow").click(function(){ 
-					
+				$(".deleteRow").click(function(){ 	
 					var id; 
 			   		id=$(this).closest('tr').children('td:first').text();  
 					var del = new XMLHttpRequest();
@@ -212,16 +208,12 @@ document.body.onload = function() {
 							console.log('error');
 						}
 					})
-
 					del.send(null);
 					event.preventDefault; 
-
 				});
 
-							/* want to refresh page (not reload) upon insert */
-
+				/* want to refresh page (not reload) upon insert */
 				document.getElementById("submit").onclick = function() {
-
 					var req = new XMLHttpRequest();
 					req.open('GET', $('#insertForm').attr('action') + "?" + $('#insertForm').serialize(), true);
 					req.addEventListener("load", function() {
