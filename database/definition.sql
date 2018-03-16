@@ -1,5 +1,7 @@
 # Clear database
 
+USE bioerpdata;
+
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS batch;

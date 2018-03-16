@@ -86,6 +86,10 @@ nav {
 	margin-bottom: 46px;
 }
 
+#body-container {
+	width: 90%;
+}
+
 #bottom-button {
 	text-align: center;
 }

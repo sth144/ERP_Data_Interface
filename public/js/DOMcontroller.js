@@ -107,12 +107,49 @@ document.body.onload = function() {
 				var tableTitle = document.createElement("h3"); tableTitle.textContent = "New " + model;
 				insertForm.appendChild(tableTitle);
 
+				/* iterate through each attribute of model */
 				for (var i = 0; i < modelsObj[model]['SQLcols'].length; i++) {
-					var newField = document.createElement("input"); if (i == 0) {newField.type = "hidden";}
-					newField.placeholder = modelsObj[model]['colHeaders'][i];
-					newField.name = modelsObj[model]['SQLcols'][i];
-					newField.classList.add('form-group');
-					insertForm.appendChild(newField); insertForm.appendChild(document.createElement('br'));
+					if (modelsObj[model]['foreignKeys'].hasOwnProperty(modelsObj[model]['SQLcols'][i])) {
+						/* foreign key, allow user to select from a dropdown */
+						(function() {	// wrap in a closure function to bind XMLHttpRequests over multiple loop iterations
+							/* create a new select element */
+							var newSelect = document.createElement("select");
+							var newSelectLabel = document.createElement("strong");
+							newSelectLabel.innerHTML = modelsObj[model]['SQLcols'][i];
+							newSelect.name = modelsObj[model]['SQLcols'][i];
+							newSelect.classList.add('form-group');
+							/* grab strings to use to build option strings */
+							var newSelectNamesArr = modelsObj[model]['foreignKeys'][modelsObj[model]['SQLcols'][i]][1];
+							/* open an XMLHttpRequest to get data for foreign key table */
+							var selectDropReq = new XMLHttpRequest();
+							selectDropReq.open("GET", "/select?table=" + modelsObj[model]['foreignKeys'][modelsObj[model]['SQLcols'][i]][0], true);
+							selectDropReq.addEventListener("load", function() {
+								if (selectDropReq.status >= 200 && selectDropReq.status < 400) { 
+									var rows = JSON.parse(selectDropReq.responseText).results;
+									/* iterate through each row in the response (foreign key table */
+									for (var k = 0; k < rows.length; k++) {
+										/* create a new option */
+										var newOption = document.createElement("option");
+										newOption.value = k;
+										for (var j = 0; j < newSelectNamesArr.length; j++) {
+											newOption.innerHTML += rows[k][newSelectNamesArr[j]] + " ";		// display string for the option
+										}
+										newSelect.appendChild(newOption);
+									}
+								}
+							})
+							selectDropReq.send(null); event.preventDefault();
+							insertForm.appendChild(newSelectLabel); insertForm.appendChild(document.createElement('br'));
+							insertForm.appendChild(newSelect); insertForm.appendChild(document.createElement('br'));
+						})();		// End closure function call (necessary to bind XMLHttpRequests)
+					}
+					else {
+						var newField = document.createElement("input"); if (i == 0) {newField.type = "hidden";}
+						newField.placeholder = modelsObj[model]['colHeaders'][i];
+						newField.name = modelsObj[model]['SQLcols'][i];
+						newField.classList.add('form-group');
+						insertForm.appendChild(newField); insertForm.appendChild(document.createElement('br'));
+					}
 				}
 
 				var submit = document.createElement("button"); submit.id = "submit"; submit.type = "button"; submit.textContent = "Submit"; 
@@ -183,17 +220,14 @@ document.body.onload = function() {
 					del.open("GET", "/delete/?table=" + model + "&id=" + id, true);
 
 					del.addEventListener("load", function() {
-
 						if (del.status >= 200 && del.status < 400) {
 							console.log('client-delete');
 							console.log(del.responseText);
 							refreshData(model, "");
 						}
-
 						else {
 							console.log('error');
 						}
-
 					})
 
 					del.send(null);
@@ -207,20 +241,15 @@ document.body.onload = function() {
 
 					var req = new XMLHttpRequest();
 					req.open('GET', $('#insertForm').attr('action') + "?" + $('#insertForm').serialize(), true);
-
 					req.addEventListener("load", function() {
-
 						console.log('loaded');
 						if (req.status >= 200 && req.status < 400) {
 							/* need to call twice to prevent buggy inconsistence */
 							refreshData(model, ""); refreshData(model, "");
 						}
-
 					});
-
 					req.send(null);
 					event.preventDefault();
-					
 				}
 
 			}
@@ -254,14 +283,50 @@ document.body.onload = function() {
 				/* tailor form to model */
 
 				for (var i = 0; i < modelsObj[model]['SQLcols'].length; i++) {
-					var newField = document.createElement('input'); if (i == 0) { newField.type = "hidden" } 
-					var newFieldTitle = document.createElement('strong'); if (i == 0) { newFieldTitle.style.visibility = "hidden" }
-					newFieldTitle.textContent = modelsObj[model]['colHeaders'][i];
-					newField.name = modelsObj[model]['SQLcols'][i];
-					newField.value = rowData[i].textContent;
-					editForm.appendChild(newFieldTitle);
-					editForm.appendChild(document.createElement('br'));
-					editForm.appendChild(newField);
+					if (modelsObj[model]['foreignKeys'].hasOwnProperty(modelsObj[model]['SQLcols'][i])) {
+						/* foreign key, allow user to select from a dropdown */
+						(function() {	// wrap in a closure function to bind XMLHttpRequests over multiple loop iterations
+							/* create a new select element */
+							var newSelect = document.createElement("select");
+							var newSelectLabel = document.createElement("strong");
+							newSelectLabel.innerHTML = modelsObj[model]['foreignKeys'][modelsObj[model]['SQLcols'][i]][0];
+							newSelect.name = modelsObj[model]['SQLcols'][i];
+							newSelect.classList.add('form-group');
+							/* grab strings to use to build option strings */
+							var newSelectNamesArr = modelsObj[model]['foreignKeys'][modelsObj[model]['SQLcols'][i]][1];
+							/* open an XMLHttpRequest to get data for foreign key table */
+							var selectDropReq = new XMLHttpRequest();
+							selectDropReq.open("GET", "/select?table=" + modelsObj[model]['foreignKeys'][modelsObj[model]['SQLcols'][i]][0], true);
+							selectDropReq.addEventListener("load", function() {
+								if (selectDropReq.status >= 200 && selectDropReq.status < 400) { 
+									var rows = JSON.parse(selectDropReq.responseText).results;
+									/* iterate through each row in the response (foreign key table */
+									for (var k = 0; k < rows.length; k++) {
+										/* create a new option */
+										var newOption = document.createElement("option");
+										newOption.value = k;
+										for (var j = 0; j < newSelectNamesArr.length; j++) {
+											newOption.innerHTML += rows[k][newSelectNamesArr[j]] + " ";		// display string for the option
+										}
+										newSelect.appendChild(newOption);
+									}
+								}
+							})
+							selectDropReq.send(null); event.preventDefault();
+							editForm.appendChild(newSelectLabel); editForm.appendChild(document.createElement('br'));
+							editForm.appendChild(newSelect); editForm.appendChild(document.createElement('br'));
+						})();		// End closure function call (necessary to bind XMLHttpRequests)
+					}
+					else {
+						var newField = document.createElement('input'); if (i == 0) { newField.type = "hidden" } 
+						var newFieldTitle = document.createElement('strong'); if (i == 0) { newFieldTitle.style.visibility = "hidden" }
+						newFieldTitle.textContent = modelsObj[model]['colHeaders'][i];
+						newField.name = modelsObj[model]['SQLcols'][i];
+						newField.value = rowData[i].textContent;
+						editForm.appendChild(newFieldTitle);
+						editForm.appendChild(document.createElement('br'));
+						editForm.appendChild(newField);
+					}
 				}
 
 				var newSubmit = document.createElement('button');
@@ -340,6 +405,9 @@ document.body.onload = function() {
 				var exportButton = document.createElement("button");
 				exportButton.innerHTML = "Export .csv";
 				var container = document.getElementById("bottom-button");
+				while (container.firstChild) {
+					container.removeChild(container.firstChild);
+				}
 				container.appendChild(exportButton);
 				exportButton.onclick = function() {
 					csvExport();

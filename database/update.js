@@ -60,8 +60,8 @@ router.get('/',function(req,res,next) {
       queryString += "WHERE id=? ";
 
       /* build queryArr */
-      for (var i = 0; i < modelsObj[model]['fieldNames'].length - 1; i++) {
-          var curAttr = modelsObj[model]['fieldNames'][i + 1];
+      for (var i = 0; i < modelsObj[model]['SQLcols'].length - 1; i++) {
+          var curAttr = modelsObj[model]['SQLcols'][i + 1];
           queryArr[i] = req.query[curAttr] || curVals[curAttr];
       }
       queryArr[queryArr.length] = req.query['id'];

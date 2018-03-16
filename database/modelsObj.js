@@ -20,7 +20,8 @@ var modelsObj = {
     insertStrings: [
       "(name, unit, shelf_life, supplier, country, lead_time) ", 
       "(?, ?, ?, ?, ?, ?)",
-    ]
+    ],
+    foreignKeys: {}
   },
   batch: {
     DOM: ['insertForm', 'makeEditable', 'searchBar', 'exportDataButton'],
@@ -29,7 +30,8 @@ var modelsObj = {
     insertStrings: [
       "(part_no, expiration) ", 
       "(?, ?)",
-    ]
+    ],
+    foreignKeys: {part_no: ['product', ['name']]}
   },
   employee: {
     DOM: ['insertForm', 'makeEditable', 'searchBar'],
@@ -38,7 +40,8 @@ var modelsObj = {
     insertStrings: [
       "(fname, lname, supervisor, department) ",
       "(?, ?, ?, ?)"
-    ]
+    ],
+    foreignKeys: {supervisor: ['employee', ['fname', 'lname']]}
   },
   equipment: {
     DOM: ['insertForm', 'makeEditable', 'searchBar'],
@@ -47,7 +50,8 @@ var modelsObj = {
     insertStrings: [
       "(name, operators_required, manufacturer, service_interval, service_contact)",
       "(?, ?, ?, ?, ?)"
-    ]
+    ],
+    foreignKeys: {}
   },
   customer: {
     DOM: ['insertForm', 'makeEditable', 'searchBar'],
@@ -56,7 +60,8 @@ var modelsObj = {
     insertStrings: [
       "(name, contact)",
       "(?, ?)"
-    ]
+    ],
+    foreignKeys: {}
   },
   experiment: {
     DOM: ['insertForm', 'makeEditable', 'searchBar'],
@@ -65,7 +70,8 @@ var modelsObj = {
     insertStrings: [
       "(date, notes)",
       "(?, ?)"
-    ]
+    ],
+    foreignKeys: {}
   },
   made_from: {
     DOM: ['insertForm', 'makeEditable'],
@@ -74,7 +80,8 @@ var modelsObj = {
     insertStrings: [
       "(parent, child)",
       "(?, ?)"
-    ]
+    ],
+    foreignKeys: {parent: ['product', ['name']], child: ['product', ['name']]}
   },
   authorization: {
     DOM: ['insertForm', 'makeEditable'],
@@ -83,7 +90,8 @@ var modelsObj = {
     insertStrings: [
       "(employee_id, equipment_id)",
       "(?, ?)"
-    ]
+    ],
+    foreignKeys: {employee_id: ['employee', ['fname', 'lname']], equipment_id: ['equipment', ['id', 'name']]}
   },
   purchase: {
     DOM: ['insertForm', 'makeEditable'],
@@ -92,7 +100,8 @@ var modelsObj = {
     insertStrings: [
       "(customer_id, product_id, amount, date)",
       "(?, ?, ?, ?)"
-    ]
+    ],
+    foreignKeys: {customer_id: ['customer', ['name']], product_id: ['product', ['name']]}
   },
   experiment_product: {
     DOM: ['insertForm', 'makeEditable'],
@@ -101,7 +110,8 @@ var modelsObj = {
     insertStrings: [
       "(experiment_id, product_id)",
       "(?, ?)"
-    ]
+    ],
+    foreignKeys: {experiment_id: ['experiment', ['id']], product_id: ['product', ['name']]}
   },
   experiment_employee: {
     DOM: ['insertForm', 'makeEditable'],
@@ -110,7 +120,8 @@ var modelsObj = {
     insertStrings: [
       "(experiment_id, employee_id)",
       "(?, ?)"
-    ]
+    ],
+    foreignKeys: {experiment_id: ['experiment', ['id']], employee_id: ['employee', ['fname', 'lname']]}
   } 
 };
 
