@@ -1,6 +1,6 @@
 # Clear database
 
-USE bioerpdata;
+#USE bioerpdata;
 
 SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS product;

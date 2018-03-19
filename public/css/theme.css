@@ -33,6 +33,11 @@ nav {
 	padding: 5px;
 }
 
+
+.navbar-default .navbar-nav > li > a:hover {
+    background: #93C6C6;
+}
+
 .navbar {
 	background: #FFFFFF;
 }
@@ -96,4 +101,13 @@ nav {
 
 #carousel-example-generic {
 	text-align: center;
+}
+
+/* Bootstrap overwrite for dropdown in Navbar */
+
+.navbar-default .navbar-nav>.open>a, 
+.navbar-default .navbar-nav>.open>a:focus, 
+.navbar-default .navbar-nav>.open>a:hover {
+    color: #555;
+    background-color: #99CCCC;
 }
